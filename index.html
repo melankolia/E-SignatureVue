@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue@2.6.11/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+</head>
+<body>
+    <element id="app">
+        <div class="wrapper">
+            <h2>E-Signature</h2>
+            <canvas id="signature-pad" ref="canvas" class="signature-pad" width="400px" height="200px"></canvas>
+            <br>
+            <button @click="saveSignature" class="btn btn-primary btn-sm">Save Signature</button>
+            <button @click="undoSignature" class="btn btn-secondary btn-sm">Undo</button>
+            <button @click="clearSignature" class="btn btn-danger btn-sm">Clear</button>
+            <hr>
+            <img v-bind:src="source">
+        </div>
+    </element>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                hello: "Hello World",
+                source: "",
+                canvas: ""
+            },
+            mounted: function (){
+                this.canvas = new SignaturePad(this.$refs.canvas, {
+                backgroundColor: 'rgb(255, 255, 255)' 
+                // necessary for saving image as JPEG; can be removed is only saving as PNG or SVG
+                });
+            },
+            methods: {
+                saveSignature: function(){
+                    if (this.canvas.isEmpty()) {
+                        return alert("Please provide a signature first.");
+                    }
+                    this.source = this.canvas.toDataURL('image/jpeg');
+                },
+                undoSignature: function(){
+                    let data = this.canvas.toData();
+                    if (data) {
+                        data.pop(); // remove the last dot or line
+                        this.canvas.fromData(data);
+                    }
+                },
+                clearSignature: function(){
+                    this.canvas.clear()
+                }
+            }
+        })
+    </script>
+</body>
+<style>
+
+.wrapper {
+    margin-left: 20px;
+}
+
+.wrapper button {
+    margin: 5px
+}
+
+.wrapper canvas {
+    margin: 0;
+}
+
+.wrapper h2{
+    margin: 10px 0 10px 20px;
+    font-family: sans-serif;
+}
+
+.signature-pad {
+    display: inline;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+</style>
+</html>
