@@ -12,7 +12,7 @@
     <element id="app">
         <div class="wrapper">
             <h2>E-Sign</h2>
-            <canvas id="signature-pad" ref="canvas" class="signature-pad" width="400px" height="200px"></canvas>
+            <canvas id="signature-pad" ref="canvas" class="signature-pad" width="800px" height="400px"></canvas>
             <br>
             <div class="button-wrapper">
                 <button @click="saveSignature" class="btn btn-primary btn-sm">Save Signature</button>
@@ -47,6 +47,7 @@
                     this.source = this.canvas.toDataURL('image/jpeg');
                 },
                 color: function(color){
+                    console.log(window.devicePixelRatio)
                     this.canvas.penColor = color
                 },
                 clearSignature: function(){
@@ -81,6 +82,7 @@
     background-color: white;
     border: 1px solid black;
     border-radius: 10px;
+    margin: 0 20px 0 0!important;
 }
 
 .btn-primary:hover {
