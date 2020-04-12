@@ -15,8 +15,7 @@
             <canvas id="signature-pad" ref="canvas" class="signature-pad" width="400px" height="200px"></canvas>
             <br>
             <button @click="saveSignature" class="btn btn-primary btn-sm">Save Signature</button>
-            <button v-if="source" @click="clearSignature" class="btn btn-danger btn-sm">Clear</button>
-            <button v-else @click="clearSignature" class="btn btn-danger btn-sm" disabled>Clear</button>
+            <button @click="clearSignature" class="btn btn-danger btn-sm">Clear</button>
             <hr>
             <img v-bind:src="source">
         </div>
