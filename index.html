@@ -42,13 +42,6 @@
                     }
                     this.source = this.canvas.toDataURL('image/jpeg');
                 },
-                undoSignature: function(){
-                    let data = this.canvas.toData();
-                    if (data) {
-                        data.pop(); // remove the last dot or line
-                        this.canvas.fromData(data);
-                    }
-                },
                 clearSignature: function(){
                     this.canvas.clear()
                 }
