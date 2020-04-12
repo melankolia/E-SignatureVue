@@ -14,8 +14,13 @@
             <h2>E-Sign</h2>
             <canvas id="signature-pad" ref="canvas" class="signature-pad" width="400px" height="200px"></canvas>
             <br>
-            <button @click="saveSignature" class="btn btn-primary btn-sm">Save Signature</button>
-            <button @click="clearSignature" class="btn btn-danger btn-sm">Clear</button>
+            <div class="button-wrapper">
+                <button @click="saveSignature" class="btn btn-primary btn-sm">Save Signature</button>
+                <button @click="clearSignature" class="btn btn-danger btn-sm">Clear</button>
+                <p style="margin: 0 0 0 50px;">Color</p>
+                <div @click="color('rgb(0,0,0)')" class="color color-black"></div>
+                <div @click="color('rgb(0, 0, 255)')" class="color color-blue"></div>
+            </div>
             <hr>
             <img v-bind:src="source">
         </div>
@@ -41,6 +46,9 @@
                     }
                     this.source = this.canvas.toDataURL('image/jpeg');
                 },
+                color: function(color){
+                    this.canvas.penColor = color
+                },
                 clearSignature: function(){
                     this.canvas.clear()
                     this.source = ""
@@ -52,6 +60,7 @@
 <style>
 
 .wrapper {
+    flex-direction: column;
     margin-left: 20px;
 }
 
@@ -87,6 +96,34 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
+.color {
+    width: 25px;
+    height: 25px;
+    margin: 0 0 0 5px;
+    transition: 0.2s;
+    border-radius: 50%;
+    cursor: pointer;
+}
 
+.color:hover {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.color:active {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.button-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.color-blue {
+    background-color: rgb(0, 0, 255) ;
+}
+
+.color-black {
+    background-color: rgb(0, 0, 0) ;
+}
 </style>
 </html>
